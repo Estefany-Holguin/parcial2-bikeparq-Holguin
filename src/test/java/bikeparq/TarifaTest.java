@@ -27,4 +27,26 @@ class TarifaTest {
                 IllegalArgumentException.class,
                 () -> Tarifa.calcularTarifa(60, "bicicleta"));
     }
+
+    @Test
+    @DisplayName("Minutos negativos fuera de rango debe lanzar error")
+    void testMinutosNegativosLanzaError() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Tarifa.calcularTarifa(-1, "carro"));
+    }
+
+    @Test
+    @DisplayName("Minutos mayores a 1440 fuera de rango debe lanzar error")
+    void testMinutosMayoresA1440LanzaError() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Tarifa.calcularTarifa(1441, "carro"));
+    }
+
+    @Test
+    @DisplayName("Aplica tope diario cuando el cálculo lo supera")
+    void testAplicaTopeDiario() {
+        assertEquals(25_000, Tarifa.calcularTarifa(1000, "carro"));
+    }
 }
