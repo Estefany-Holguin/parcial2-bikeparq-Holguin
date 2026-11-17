@@ -21,4 +21,10 @@ class RecargoTest {
                 IllegalArgumentException.class,
                 () -> Recargo.aplicarRecargoNocturno(3000, 24));
     }
+
+    @Test
+    @DisplayName("R3: Tarifa 0 en tiempo de gracia no tiene recargo de noche")
+    void testTarifaCeroSinRecargo() {
+        assertEquals(0, Recargo.aplicarRecargoNocturno(0, 23));
+    }
 }
