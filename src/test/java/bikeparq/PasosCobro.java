@@ -12,6 +12,8 @@ public class PasosCobro {
 
     private String tipo;
     private int cobro;
+    private int tarifa;
+    private int totalPagar;
 
     @Given("un vehículo tipo {string}")
     public void unVehiculoTipo(String tipo) {
@@ -29,4 +31,19 @@ public class PasosCobro {
     }
 
     // PUNTO 3: agregue aquí los pasos de sus escenarios del recargo nocturno.
+
+    @Given("una tarifa de {int} pesos")
+    public void unaTarifaDe(int tarifa) {
+        this.tarifa = tarifa;
+    }
+
+    @When("el vehículo entró a las {int} horas")
+    public void elVehiculoEntroALas(int horaEntrada) {
+        totalPagar = Recargo.aplicarRecargoNocturno(tarifa, horaEntrada);
+    }
+
+    @Then("el total a pagar es de {int} pesos")
+    public void elTotalAPagarEsDe(int esperado) {
+        assertEquals(esperado, totalPagar);
+    }
 }
